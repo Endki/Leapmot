@@ -1,0 +1,34 @@
+    	Frame frame=controller.frame();
+    	GestureList gestures = frame.gestures();
+    	
+    	for(int i=0;i<gestures.count(); i++) {
+    		Gesture gesture =gestures.get(i);
+    		
+    		switch(gesture.type()) {
+    		case TYPE_CIRCLE:
+    			CircleGesture circle= new CircleGesture(gesture);
+    			
+    			String clockwiseness;
+    			if(circle.pointable().direction().angleTo(circle.normal())<=Math.PI/4) {
+    				clockwiseness = "clockwise";
+    			}else {
+    				clockwiseness = "counter-clockwise";
+    			}
+    			
+    			double sweptAngle=0;
+    			if(circle.state() != State.STATE_START) {
+    				CircleGesture previous=new CircleGesture(controller.frame(1).gesture(circle.id()));
+    				sweptAngle=(circle.progress() - previous.progress()) * 2 * Math.PI;
+    				
+    			}
+    			System.out.println(
+    								"count: "+gestures.count()+
+    								" Circle ID: "+circle.id()
+    								+" State: "+circle.state()
+    								+" Progress: "+circle.progress()
+    								+" Radius: "+circle.radius()
+    								+" Angle: "+Math.toDegrees(sweptAngle)
+    								+ " "+clockwiseness);
+    			break;
+    		}
+    	}

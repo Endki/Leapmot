@@ -1,0 +1,23 @@
+TYPE_THUMB : 엄지
+TYPE_INDEX : 검지
+TYPE_MIDDLE : 중지
+TYPE_RING : 약지
+TYPE_PINKY : 소지
+
+
+
+매개 변수 :	boneIndex ( 정수 ) -
+뼈 유형을 식별하는 코드 :
+
+0 = TYPE_METACARPAL - 중수골 뼈.
+1 = TYPE_PROXIMAL - 근위 골반; 손에 가장 가까운 뼈 부분.
+2 = TYPE_INTERMEDIATE - 중급, 중간, 지골.
+3 = TYPE_DISTAL - 말단 지골; 손에서 가장 멀리 떨어진 뼈 부분.
+보고:	Bone -손가락의 지정된 세그먼트를 나타내는Bone객체입니다.
+
+항상 손가락 좌표가 나온다
+
+몇개만 구분해서 나오게 할 수 는 없다.
+
+1) 손가락의 좌표 - 손바닥의 좌표의 절대값으로 구분하여 한다. (실패)
+2) 제스쳐 인식을 통해 손가락 피는 동작으로 숫자를 구분하게 한다. (시도)

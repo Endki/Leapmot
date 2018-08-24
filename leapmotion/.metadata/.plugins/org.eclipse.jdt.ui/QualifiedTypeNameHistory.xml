@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="com.leapmotion.leap.Finger.Type"/>
     <fullyQualifiedTypeName name="java.lang.Object"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Bone.Type"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Pointable"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Pointable.Zone"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture.Type"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.CircleGesture"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture.State"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Hand"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Vector"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Finger"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Finger.Type"/>
 </qualifiedTypeNameHistroy>
