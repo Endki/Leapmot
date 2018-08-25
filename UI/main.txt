@@ -1,0 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package uitest1;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author LGPC
+ */
+public class UITest1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    LoginView loginView;
+    public static void main(String[] args) {
+        
+    
+        // 메인클래스 실행
+        UITest1 main = new UITest1();
+        main.loginView = new LoginView(); // 로그인창 보이기
+        main.loginView.setMain(main); // 로그인창에게 메인 클래스보내기
+    }
+    
+}
