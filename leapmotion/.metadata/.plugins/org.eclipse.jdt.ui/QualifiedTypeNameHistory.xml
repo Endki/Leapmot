@@ -12,4 +12,12 @@
     <fullyQualifiedTypeName name="com.leapmotion.leap.Vector"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Finger"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Finger.Type"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="javafx.scene.input.KeyEvent"/>
+    <fullyQualifiedTypeName name="com.sun.glass.events.KeyEvent"/>
+    <fullyQualifiedTypeName name="com.sun.glass.ui.Robot"/>
+    <fullyQualifiedTypeName name="java.awt.Robot"/>
+    <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
+    <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
+    <fullyQualifiedTypeName name="SampleListener"/>
 </qualifiedTypeNameHistroy>
