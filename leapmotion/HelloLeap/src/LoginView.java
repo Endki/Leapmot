@@ -15,12 +15,10 @@ public class LoginView extends JFrame {
     private JButton btnLogin;
     private JButton btnInsert;
     private JButton btnPut;
-    private JPasswordField passText;
+    //private JPasswordField passText;
     private JTextField userText;
-    //private JTextField passText;
-    StringBuffer str=SampleListener.strbff;
-    //
-    //
+    private JTextField passText;
+    
     
     public LoginView() {
         //initComponents();
@@ -64,11 +62,10 @@ public class LoginView extends JFrame {
         });
         
         
-        passText = new JPasswordField(20);
-        //passText = new JTextField(20);
+        //passText = new JPasswordField(20);
+        passText = new JTextField(20);
         passText.setBounds(100, 40, 160, 25);
         panel.add(passText);
-       
         passText.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -104,25 +101,32 @@ public class LoginView extends JFrame {
         btnPut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               // Create a sample listener and controller
-        		SampleListener listener = new SampleListener();
-        		Controller controller = new Controller();
+            	SampleListener listener = new SampleListener();
+            	
+        		for(listener.passnum=0;listener.passnum<4;) {
+            		Controller controller = new Controller();
+            		controller.addListener(listener);
+            		listener.onInit(controller);
+        			listener.onConnect(controller);
+        			while(!listener.passnumIsChanged) {
+        				
+        				listener.onFrame(controller);
+        			}
+        			listener.onDisconnect(controller);
+        			listener.onExit();
         		
-        		// Have the sample listener receive events from the controller
-        		controller.addListener(listener);
-        		
-        		
-        		
-        		// Keep this process running until Enter is pressed
-        		try {
-        				System.in.read();
-
-        		} catch (IOException eception) {
-        			eception.printStackTrace();
+        			//System.out.println("Loginview Password"+listener.PassWord());
+        				passText.setText(listener.PassWord());
+        				if(listener.passnumIsChanged) {
+        					JOptionPane.showMessageDialog(null, "입력성공");
+        				}
+        			listener.onInit(controller);
+        			controller.removeListener(listener);
         		}
+        		
 
         		// Remove the sample listener when done
-        		controller.removeListener(listener);
+        		//controller.removeListener(listener);
             }
         });
     }
@@ -159,7 +163,7 @@ public class LoginView extends JFrame {
         this.main = main;
     }
 
-
+/*
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
@@ -179,7 +183,7 @@ public class LoginView extends JFrame {
 
         pack();
     }// </editor-fold>                        
-
+*/
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

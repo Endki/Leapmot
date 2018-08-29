@@ -1,13 +1,33 @@
+
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.lang.Math;
 
+import javax.swing.JOptionPane;
+
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Finger.Type;
 
 public class SampleListener extends Listener  {
+	
+	int i, j=0, re2=0, ps;
+	int arr1[] = new int [100];
+	int arr2[] = new int [40];
+	float re1 =0;
+	public String pass="";
+	public int passnum=0;
+	public boolean passnumIsChanged;
+	
+	
+	public String PassWord() {
+		return pass;
+	}
+	
+	
+	
 static	StringBuffer strbff=new StringBuffer("");
 	public StringBuffer getStrbff() {
 		return strbff;
@@ -37,12 +57,12 @@ static	StringBuffer strbff=new StringBuffer("");
 
 	public void onExit() {
 		
-		
 		System.out.println("Exited");
 	}
 
 	public void onFrame(Controller controller) {
 		
+		passnumIsChanged=false;
 		
 		try {
 			Thread.sleep(500);
@@ -58,6 +78,7 @@ static	StringBuffer strbff=new StringBuffer("");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		if(frame.hands().count()==2) {
 			
@@ -124,7 +145,10 @@ static	StringBuffer strbff=new StringBuffer("");
 						// 손가락의 방향벡터가 맞으면 1을 출력한다.
 						
 						 {
-					strbff.append("1");
+					System.out.println("1");
+					//strbff.append("1");
+					arr1[i]=1;
+					i++;
 					break;
 				}
 				//2추출
@@ -148,7 +172,10 @@ static	StringBuffer strbff=new StringBuffer("");
 		            	&& frame.fingers().get(3).type().toString() == "TYPE_PINKY"
 		            	&& frame.fingers().get(4).direction().getZ()> -0.60
 		            	)) {  
-					strbff.append("2");
+					System.out.println("2");
+					//strbff.append("2");
+					arr1[i]=2;
+					i++;
 		            	break;
 		                }
 						
@@ -179,7 +206,10 @@ static	StringBuffer strbff=new StringBuffer("");
 //		            	&& frame.fingers().get(4).direction().getZ()> -0.60
 //		            	)
 					) {  
-					strbff.append("3");
+					System.out.println("3");
+					//strbff.append("3");
+					arr1[i]=3;
+					i++;
 		            	break;
 		                }//5개 손가락 순서 맞춰주고
 		            	//손가락의 방향벡터가 맞으면 3을 출력한다.
@@ -197,7 +227,10 @@ static	StringBuffer strbff=new StringBuffer("");
 		            &&(frame.fingers().get(0).type().toString() =="TYPE_THUMB"
 		            	&& frame.fingers().get(0).direction().getZ()>-0.60)
 					) {
-					strbff.append("4");
+					System.out.println("4");
+					//strbff.append("4");
+					arr1[i]=4;
+					i++;
 		            	break;
 		                }
 				// 5추출
@@ -216,10 +249,12 @@ static	StringBuffer strbff=new StringBuffer("");
 						 {
 					
 					System.out.println("5");
-					strbff.append("5");
+					//strbff.append("5");
+					arr1[i]=5;
+					i++;
 					break;
 				}
-
+				
 				break;
 			}
 			break;
@@ -230,7 +265,67 @@ static	StringBuffer strbff=new StringBuffer("");
 		}else {
 			System.out.println("is confirmed");
 		}
-        System.out.println(strbff.toString());
+		
+//        System.out.println(strbff.toString());
+        System.out.println("i="+i);
+        
+        
+        if (i>=29) {
+        	//setPaused(True);
+        	
+        	
+        	for (i=5;i<25;i++) {
+        		j=0;
+        		arr2[j]=arr1[i];
+        		
+        		re1+=arr2[j];
+        		re2+=arr2[j];
+        		j++;
+        	}
+        	re1/=20;
+        	re2/=20;
+        	re1-=re2;
+        	
+        	if(re1<0.3) {
+        		ps=re2;
+        		pass+=String.valueOf(ps);
+        		passnum++;
+        		passnumIsChanged=true;
+            	
+        	}else if((re1>=0.3)&&(re1<0.7)) {
+        		//다시 입력 받기
+        		passnumIsChanged=false;
+        	}else {
+        		ps=re2+1;
+        		pass+=String.valueOf(ps);
+        		passnum++;
+        		passnumIsChanged=true;
+        	}	
+        	
+        	i=0;
+        	re1=0;
+        	re2=0;
+        	
+        		try {
+        			Thread.sleep(1000);
+        		} catch (InterruptedException e1) {
+        			// TODO Auto-generated catch block
+        			e1.printStackTrace();
+        		}
+        		
+        		
+        	
+        	
+        	//System.out.println("password="+ps);
+        	//System.out.println("passwordString="+pass);
+        	
+        	//setPaused(False);
+        	
+        }
+        
+        
+        
+        
 	}
 	
 

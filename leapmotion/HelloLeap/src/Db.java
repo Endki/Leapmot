@@ -1,3 +1,5 @@
+
+
 import java.sql.*;
 
 public class Db {
@@ -15,7 +17,6 @@ public class Db {
 	public Db() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");	//JDBC드라이버 로드
-
 			con = DriverManager.getConnection(dburl,dbid,dbpass);
 			System.out.println("Mysql Server Connected.\n");
 			
@@ -94,7 +95,6 @@ public class Db {
       //rs.next로 테이블형태의 정보를 Client 클래스에서 정의한 매개변수가 있는 생성자를 객체로 생성하여 받아온 정보를 가진 client형태의 객체하나를 생성한다.
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			System.out.println("5");
 			e.printStackTrace();
 		} finally {
 			try {
