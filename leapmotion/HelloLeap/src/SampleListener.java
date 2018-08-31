@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import com.leapmotion.leap.*;
 import com.leapmotion.leap.Finger.Type;
+import com.leapmotion.leap.Gesture.State;
 
 public class SampleListener extends Listener  {
 	
@@ -63,6 +64,53 @@ static	StringBuffer strbff=new StringBuffer("");
 	public void onFrame(Controller controller) {
 		
 		passnumIsChanged=false;
+		Frame frame = controller.frame();
+		GestureList gestures = frame.gestures();
+
+		//서클,스와이프
+		for (int i = 0; i < gestures.count(); i++) {
+			Gesture gesture = gestures.get(i);
+			
+			switch (gesture.type()) {
+			case TYPE_CIRCLE:
+				CircleGesture circle = new CircleGesture(gesture);
+
+				String clockwiseness;
+				if (circle.pointable().direction().angleTo(circle.normal()) <= Math.PI / 4) {
+					clockwiseness = "clockwise";
+				} else {
+					clockwiseness = "counter-clockwise";
+				}
+
+				double sweptAngle = 0;
+				if (circle.state() != State.STATE_START) {
+					CircleGesture previous = new CircleGesture(controller.frame(1).gesture(circle.id()));
+					sweptAngle = (circle.progress() - previous.progress()) * 2 * Math.PI;
+
+				} // 여기에 이제 인식되는거 가정하고 넣으면됨 break 하게하는 것을 넣으면 좋을듯
+				System.out.println(
+						  "count: "+gestures.count()+ " Circle ID: "+circle.id()
+						  +" State: "+circle.state() +" Progress: "+circle.progress()
+						  +" Radius: "+circle.radius() +" Angle: "+Math.toDegrees(sweptAngle) +
+						  " "+clockwiseness);
+				break;
+				
+			case TYPE_SWIPE:
+				SwipeGesture swipe = new SwipeGesture(gesture);
+				System.out.println(
+						"이것이 스와이프입니다.          "+
+						
+						"Swipe ID: "+swipe.id()
+									+ " Stete: "+swipe.state()
+									+ " Swipe_Position: "+ swipe.position()
+									+ " Direction: "+swipe.direction()
+									+ " Speed: "+swipe.speed());
+				i=31;
+				Main.TF=false;
+				
+				break;
+			}
+		}
 		
 		try {
 			Thread.sleep(500);
@@ -70,7 +118,6 @@ static	StringBuffer strbff=new StringBuffer("");
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		Frame frame = controller.frame();
 		Robot robot = null;
 		try {
 			robot = new Robot();
@@ -78,21 +125,6 @@ static	StringBuffer strbff=new StringBuffer("");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		if(frame.hands().count()==2) {
-			
-		
-			robot.keyPress(KeyEvent.VK_ENTER);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-
-			onExit();
-		}
-		
-		
-		
-		
-		GestureList gestures = frame.gestures();
 
 		// 방향 벡터 사용
 		for (Hand hand : frame.hands()) {
@@ -105,25 +137,26 @@ static	StringBuffer strbff=new StringBuffer("");
 				Enum fingerenum = fingertyp;
 				String fingerstr = fingerenum.toString();
 				com.leapmotion.leap.Bone.Type[] bonetyp = Bone.Type.values();
+/*				if(frame.hands().count()==2) {
 
-				double direction_z = finger.direction().getZ();
-				double direction_c = frame.fingers().get(0).direction().getZ();
-//            	Finger firstFingerInList = frame.fingers().get(2);
-//            	System.out.println(firstFingerInList.type());
+//					robot.keyPress(KeyEvent.VK_ENTER);
+//					robot.keyRelease(KeyEvent.VK_ENTER);
 
-//            	System.out.println(finger.id()%5);
-
+					onExit();
+				}*/
+//				double direction_z = finger.direction().getZ();
+//				double direction_c = frame.fingers().get(0).direction().getZ();
 				/*
 				 * System.out.println("    " + finger.type() // + "direction " +
 				 * finger.direction() + " direction z " + finger.direction().getZ() );
 				 */
 
 				
-				System.out.println(frame.fingers().get(0).type().toString() +" "+ frame.fingers().get(0).direction().getZ());
-				System.out.println(frame.fingers().get(1).type().toString()+" "+ frame.fingers().get(1).direction().getZ());
-				System.out.println(frame.fingers().get(2).type().toString()+" "+frame.fingers().get(2).direction().getZ());
-				System.out.println(frame.fingers().get(3).type().toString()+" "+frame.fingers().get(3).direction().getZ());
-				System.out.println(frame.fingers().get(4).type().toString()+" "+frame.fingers().get(4).direction().getZ());
+//				System.out.println(frame.fingers().get(0).type().toString() +" "+ frame.fingers().get(0).direction().getZ());
+//				System.out.println(frame.fingers().get(1).type().toString()+" "+ frame.fingers().get(1).direction().getZ());
+//				System.out.println(frame.fingers().get(2).type().toString()+" "+frame.fingers().get(2).direction().getZ());
+//				System.out.println(frame.fingers().get(3).type().toString()+" "+frame.fingers().get(3).direction().getZ());
+//				System.out.println(frame.fingers().get(4).type().toString()+" "+frame.fingers().get(4).direction().getZ());
 				// 1추출
 				if ((frame.fingers().get(0).type().toString() == "TYPE_THUMB"
 						&& frame.fingers().get(0).direction().getZ() <= -0.60
@@ -270,7 +303,14 @@ static	StringBuffer strbff=new StringBuffer("");
         System.out.println("i="+i);
         
         
-        if (i>=29) {
+        if (i>=30) {
+        	try {
+			Thread.sleep(500);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        	i=0;
         	//setPaused(True);
         	
         	

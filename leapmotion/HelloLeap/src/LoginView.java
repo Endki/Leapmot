@@ -104,6 +104,9 @@ public class LoginView extends JFrame {
             	SampleListener listener = new SampleListener();
             	
         		for(listener.passnum=0;listener.passnum<4;) {
+        			if(Main.TF==false) {
+        				break;
+        			}
             		Controller controller = new Controller();
             		controller.addListener(listener);
             		listener.onInit(controller);
@@ -120,10 +123,11 @@ public class LoginView extends JFrame {
         				if(listener.passnumIsChanged) {
         					JOptionPane.showMessageDialog(null, "입력성공");
         				}
+        				
         			listener.onInit(controller);
         			controller.removeListener(listener);
         		}
-        		
+        		Main.TF=true;
 
         		// Remove the sample listener when done
         		//controller.removeListener(listener);

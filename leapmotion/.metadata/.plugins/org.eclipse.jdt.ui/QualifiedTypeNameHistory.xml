@@ -7,7 +7,6 @@
     <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture.Type"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.CircleGesture"/>
-    <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture.State"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Hand"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Vector"/>
     <fullyQualifiedTypeName name="com.leapmotion.leap.Finger"/>
@@ -20,4 +19,5 @@
     <fullyQualifiedTypeName name="java.awt.event.KeyEvent"/>
     <fullyQualifiedTypeName name="java.lang.StringBuffer"/>
     <fullyQualifiedTypeName name="SampleListener"/>
+    <fullyQualifiedTypeName name="com.leapmotion.leap.Gesture.State"/>
 </qualifiedTypeNameHistroy>

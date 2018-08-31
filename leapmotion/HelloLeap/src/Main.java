@@ -4,10 +4,13 @@ import com.leapmotion.leap.*;
 
 public class Main {
     LoginView loginView;
-	public static void main(String[] args) {
+    public static boolean TF=true;
+    
+    public static void main(String[] args) {
 		
 		Db db = new Db();
 		SampleListener.strbff=null;
+		
 		//UI
         Main main = new Main();
         main.loginView = new LoginView(); // 로그인창 보이기
