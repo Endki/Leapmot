@@ -1,7 +1,5 @@
 import javax.swing.*;
-
 import com.leapmotion.leap.Controller;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -101,34 +99,35 @@ public class LoginView extends JFrame {
         btnPut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	SampleListener listener = new SampleListener();
+            	LeapListener listener = new LeapListener();
             	
         		for(listener.passnum=0;listener.passnum<4;) {
         			if(Main.TF==false) {
         				break;
         			}
+        			
             		Controller controller = new Controller();
-            		controller.addListener(listener);
+            		
             		listener.onInit(controller);
         			listener.onConnect(controller);
         			while(!listener.passnumIsChanged) {
         				
+        				listener.gesturecheck();
         				listener.onFrame(controller);
-        			}
-        			listener.onDisconnect(controller);
-        			listener.onExit();
-        		
-        			//System.out.println("Loginview Password"+listener.PassWord());
+        				//passText.setText(listener.PassWord());
         				passText.setText(listener.PassWord());
+        				
         				if(listener.passnumIsChanged) {
         					JOptionPane.showMessageDialog(null, "입력성공");
+        					listener.passnumIsChanged = false;
+        					if((listener.passnum>=4)) {
+        						listener.passnumIsChanged=true;
+        					}
         				}
-        				
-        			listener.onInit(controller);
+        			}
         			controller.removeListener(listener);
         		}
         		Main.TF=true;
-
         		// Remove the sample listener when done
         		//controller.removeListener(listener);
             }
@@ -167,33 +166,7 @@ public class LoginView extends JFrame {
         this.main = main;
     }
 
-/*
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        pack();
-    }// </editor-fold>                        
-*/
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -210,16 +183,12 @@ public class LoginView extends JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new LoginView().setVisible(true);
             }
         });
     }
-
-    // Variables declaration - do not modify                     
-    // End of variables declaration                   
+                
 }

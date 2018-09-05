@@ -1,11 +1,10 @@
 import com.leapmotion.leap.Controller;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-//import java.io.BufferedReader;
-//import java.io.BufferedWriter;
-//import java.io.FileReader;
-//import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.*;
 
@@ -112,28 +111,7 @@ public class Insert extends javax.swing.JFrame {
         btnPass1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-	SampleListener listener = new SampleListener();
-            	
-        		for(listener.passnum=0;listener.passnum<4;) {
-            		Controller controller = new Controller();
-            		controller.addListener(listener);
-            		listener.onInit(controller);
-        			listener.onConnect(controller);
-        			while(!listener.passnumIsChanged) {
-        				
-        				listener.onFrame(controller);
-        			}
-        			listener.onDisconnect(controller);
-        			listener.onExit();
-        		
-        			//System.out.println("Loginview Password"+listener.PassWord());
-        				passText1.setText(listener.PassWord());
-        				if(listener.passnumIsChanged) {
-        					JOptionPane.showMessageDialog(null, "입력성공");
-        				}
-        			listener.onInit(controller);
-        			controller.removeListener(listener);
-        		}
+            	PassCheck(); 
             }
         });
         
@@ -143,28 +121,7 @@ public class Insert extends javax.swing.JFrame {
         btnPass2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-	SampleListener listener = new SampleListener();
-            	
-        		for(listener.passnum=0;listener.passnum<4;) {
-            		Controller controller = new Controller();
-            		controller.addListener(listener);
-            		listener.onInit(controller);
-        			listener.onConnect(controller);
-        			while(!listener.passnumIsChanged) {
-        				
-        				listener.onFrame(controller);
-        			}
-        			listener.onDisconnect(controller);
-        			listener.onExit();
-        		
-        			//System.out.println("Loginview Password"+listener.PassWord());
-        				passText2.setText(listener.PassWord());
-        				if(listener.passnumIsChanged) {
-        					JOptionPane.showMessageDialog(null, "입력성공");
-        				}
-        			listener.onInit(controller);
-        			controller.removeListener(listener);
-        		}
+            	PassCheck(); 
             }
         });
         
@@ -194,9 +151,9 @@ public class Insert extends javax.swing.JFrame {
     
     
     
-    public void PassCheck(JPasswordField txt){
+    public void PassCheck(){
     	   // Create a sample listener and controller
-   		SampleListener listener = new SampleListener();
+   		LeapListener listener = new LeapListener();
    		Controller controller = new Controller();
 
    		// Have the sample listener receive events from the controller
@@ -209,9 +166,6 @@ public class Insert extends javax.swing.JFrame {
    		} catch (IOException eception) {
    			eception.printStackTrace();
    		}
-   		
-   		
-   		txt.setText(listener.PassWord());
 
    		// Remove the sample listener when done
    		controller.removeListener(listener);

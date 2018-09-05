@@ -1,12 +1,11 @@
-
-
 import java.sql.*;
+import java.util.*;
 
 public class Db {
-	
-	String dburl = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";	//test->쓸 DB로 바꿔야함
+
+	String dburl = "jdbc:mysql://localhost:3306/test?serverTimezone=UTC";	//test->쓸 DB로 바꿔야함	/////////////////////
 	String dbid = "root";
-	String dbpass = "qawsed123";
+	String dbpass = "root1234";
 	
 	Connection con;
 	PreparedStatement pstmt;	//sql문에 쓸 명령어 생성
@@ -17,6 +16,7 @@ public class Db {
 	public Db() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");	//JDBC드라이버 로드
+
 			con = DriverManager.getConnection(dburl,dbid,dbpass);
 			System.out.println("Mysql Server Connected.\n");
 			
@@ -31,6 +31,7 @@ public class Db {
 	
 	public int add(Client client) {
 		int i = 0;
+
 		try {
 			con = DriverManager.getConnection(dburl, dbid, dbpass);
 			//db 연결
@@ -46,6 +47,7 @@ public class Db {
 			pstmt.setString(1, username);
 			pstmt.setString(2, userid);
 			pstmt.setString(3, userpw);
+			//sha.SHA256_Encrpyt(userpw,5, result);
 			i = pstmt.executeUpdate();
 			System.out.println("Sign in Succeeded.");
 			bool=true;
@@ -74,7 +76,6 @@ public class Db {
 	}
 	
 	
-	//타입은 후에 메인코드 따라서 변경
 	public Client carry(String userid, String userpw) {
 		String sql="SELECT* FROM user WHERE userid=? and userpw=?";
 		try {
@@ -90,7 +91,7 @@ public class Db {
 				 client = new Client(rs.getString("username"),rs.getString("userid"),rs.getString("userpw"));
 			}
 			else {
-				client = new Client("a","a","a");
+				client = new Client(".",".",".");
 			}
       //rs.next로 테이블형태의 정보를 Client 클래스에서 정의한 매개변수가 있는 생성자를 객체로 생성하여 받아온 정보를 가진 client형태의 객체하나를 생성한다.
 		} catch (SQLException e) {

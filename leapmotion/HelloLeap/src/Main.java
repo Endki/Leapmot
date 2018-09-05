@@ -5,11 +5,10 @@ import com.leapmotion.leap.*;
 public class Main {
     LoginView loginView;
     public static boolean TF=true;
-    
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 		
 		Db db = new Db();
-		SampleListener.strbff=null;
+		LeapListener.strbff=null;
 		
 		//UI
         Main main = new Main();
